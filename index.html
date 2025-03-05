@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<style>
+    body {
+        background-color: #FBFBFB;
+        text-align: center;
+    }
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+        padding: 10px;
+    }
+
+    .gallery img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 4px;
+        transition: transform 0.3s;
+    }
+    .gallery img:hover {
+        transform: scale(0.99);
+    }
+    .hidden {
+        display: none !important;
+    }
+</style>
+<body>
+    <div class="container mt-4">
+        <h2>Image Gallery</h2>
+        <div class="btn-group" role="group">
+            <button class="btn btn-primary" onclick="filterImages('all')">All</button>
+            <button class="btn btn-secondary" onclick="filterImages('nature')">Nature</button>
+            <button class="btn btn-secondary" onclick="filterImages('animals')">Animals</button>
+            <button class="btn btn-secondary" onclick="filterImages('architecture')">Architecture</button>
+        </div>
+        <div class="mt-3">
+            <input type="text" id="searchBox" class="form-control" placeholder="Search images..." onkeyup="searchImages()">
+        </div>
+        <div class="gallery mt-4" id="imageGallery">
+            <img src="src/Nature (1).jpg" class="nature" alt="Nature">
+            <img src="src/Animal (1).jpg" class="animals" alt="Animal">
+            <img src="src/Nature (2).jpg" class="nature" alt="Nature">
+            <img src="src/Architechture (1).jpg" class="architecture" alt="Architecture">
+            <img src="src/Animal (2).jpg" class="animals" alt="Animal">
+            <img src="src/Nature (3).jpg" class="nature" alt="Nature">
+            <img src="src/Animal (3).jpg" class="animals" alt="Animal">
+            <img src="src/Nature (4).jpg" class="nature" alt="Nature">
+            <img src="src/Architechture (2).jpg" class="architecture" alt="Architecture">
+        </div>
+    </div>
+    
+    <script>
+        function filterImages(category) {
+            let images = document.querySelectorAll(".gallery img");
+            images.forEach(img => {
+                if (category === 'all' || img.classList.contains(category)) {
+                    img.classList.remove("hidden");
+                } else {
+                    img.classList.add("hidden");
+                }
+            });
+        }
+
+        function searchImages() {
+            let input = document.getElementById("searchBox").value.toLowerCase();
+            let images = document.querySelectorAll(".gallery img");
+            images.forEach(img => {
+                let altText = img.alt.toLowerCase();
+                if (altText.includes(input)) {
+                    img.classList.remove("hidden");
+                } else {
+                    img.classList.add("hidden");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
